@@ -11,13 +11,13 @@ const firebaseConfig = typeof window.__firebase_config !== 'undefined'
     ? JSON.parse(window.__firebase_config)
     : {
         // --- REPLACE THESE PLACEHOLDER VALUES WITH YOUR ACTUAL FIREBASE PROJECT CONFIG ---
-        apiKey: "YOUR_FIREBASE_API_KEY",
-        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID", // <--- THIS IS CRUCIAL FOR THE ERROR YOU SAW
-        storageBucket: "YOUR_PROJECT_ID.appspot.com",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID",
-        measurementId: "YOUR_MEASUREMENT_ID" // Optional
+            apiKey: "AIzaSyDT70daf-Z46fSkMudqxVyBmyM0pmrtOAk",
+            authDomain: "greenlakebiketracker.firebaseapp.com",
+            projectId: "greenlakebiketracker",
+            storageBucket: "greenlakebiketracker.firebasestorage.app",
+            messagingSenderId: "399094888553",
+            appId: "1:399094888553:web:d96a7aa9827589f7b74af8",
+            measurementId: "G-J323HKLYQX"
         // -------------------------------------------------------------------------------
     };
 
