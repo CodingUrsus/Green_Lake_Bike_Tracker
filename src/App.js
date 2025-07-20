@@ -5,7 +5,22 @@ import { getFirestore, doc, collection, addDoc, onSnapshot, query, where, orderB
 
 // Global Firebase configuration and app ID (provided by Canvas environment)
 // IMPORTANT: Access these via window object to satisfy ESLint during build
-const firebaseConfig = typeof window.__firebase_config !== 'undefined' ? JSON.parse(window.__firebase_config) : {};
+// When running locally (npm start), these window variables will be undefined.
+// Provide a fallback configuration for local development.
+const firebaseConfig = typeof window.__firebase_config !== 'undefined'
+    ? JSON.parse(window.__firebase_config)
+    : {
+        // --- REPLACE THESE PLACEHOLDER VALUES WITH YOUR ACTUAL FIREBASE PROJECT CONFIG ---
+        apiKey: "YOUR_FIREBASE_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID", // <--- THIS IS CRUCIAL FOR THE ERROR YOU SAW
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID",
+        measurementId: "YOUR_MEASUREMENT_ID" // Optional
+        // -------------------------------------------------------------------------------
+    };
+
 const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
 const initialAuthToken = typeof window.__initial_auth_token !== 'undefined' ? window.__initial_auth_token : null;
 
@@ -430,7 +445,7 @@ const App = () => {
                         <section className="border-b pb-4 mb-4 border-gray-200">
                             <h2 className="text-2xl font-semibold text-[#5d74a5] mb-4">Live Tracking</h2>
                             <p className="text-gray-600 italic">
-                                Only the logged-in user can start and stop location tracking.
+                                Only Austin can start and stop location tracking.
                             </p>
                         </section>
                     )}
