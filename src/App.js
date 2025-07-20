@@ -4,9 +4,10 @@ import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, 
 import { getFirestore, doc, collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp } from 'firebase/firestore';
 
 // Global Firebase configuration and app ID (provided by Canvas environment)
-const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+// IMPORTANT: Access these via window object to satisfy ESLint during build
+const firebaseConfig = typeof window.__firebase_config !== 'undefined' ? JSON.parse(window.__firebase_config) : {};
+const appId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'default-app-id';
+const initialAuthToken = typeof window.__initial_auth_token !== 'undefined' ? window.__initial_auth_token : null;
 
 // Initialize Firebase outside the component to avoid re-initialization
 const app = initializeApp(firebaseConfig);
@@ -107,7 +108,6 @@ const App = () => {
     }, []);
 
     // 3. Initialize Map (after Leaflet is loaded and Auth is ready)
-    // Map now initializes regardless of user login status, as it displays public data.
     useEffect(() => {
         if (isAuthReady && isLeafletLoaded && !mapRef.current && window.L) {
             const map = window.L.map('map').setView([0, 0], 2);
@@ -126,7 +126,7 @@ const App = () => {
 
     // 4. Fetch and Display Location Data (Real-time from PUBLIC collection)
     useEffect(() => {
-        if (!isAuthReady || !mapRef.current) return; // No longer depends on userId for fetching
+        if (!isAuthReady || !mapRef.current) return;
 
         // Fetch from the public collection for all visitors
         const locationsCollectionRef = collection(db, `artifacts/${appId}/public/data/trackedLocations`);
@@ -144,7 +144,7 @@ const App = () => {
         });
 
         return () => unsubscribe();
-    }, [isAuthReady, mapRef.current]); // No longer depends on userId
+    }, [isAuthReady, mapRef.current]);
 
     // 5. Update Map with Filtered Data (no change in logic, just dependencies)
     useEffect(() => {
